@@ -1,0 +1,31 @@
+zuul:
+  #Service will be mapped under the /api URI
+  prefix: /api
+  routes:
+    hello-server:
+      path: /serviceOne/**
+      service-id: MicroserviceOne
+    hello-client:
+      path: /serviceTwo/**
+      service-id: MicroserviceTwo
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+
+spring:
+  application:
+    name: zuul-service
+    port: 9081
+
+# Increase the Hystrix timeout to 60s (for all)
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
